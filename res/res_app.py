@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 import os
 import base64
 import json
+import jwt
 
 app = Flask(__name__)
 
+key = 'secret'
 
 def validate_token(token):
+    decoded = jwt.decode(str.encode(token), key, algorithms='HS256')
     return True
 
 

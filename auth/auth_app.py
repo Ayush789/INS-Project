@@ -15,7 +15,7 @@ def auth():
     print("AuthServer")
     credentials = json.loads(request.get_data())
 
-    if id!=credentials['id']:
+    if id!=credentials['username']:
         return jsonify({"Error": "Incorrect ID"})
     elif password!=credentials['password']:
         return jsonify({"Error": "Incorrect password"})

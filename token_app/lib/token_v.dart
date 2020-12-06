@@ -8,8 +8,10 @@ class Token_V extends StatefulWidget {
 }
 
 class _Token_VState extends State<Token_V> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController =
+      TextEditingController(text: "student");
+  TextEditingController passwordController =
+      TextEditingController(text: "projectINS");
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<Token_VM>.reactive(
@@ -26,61 +28,80 @@ class _Token_VState extends State<Token_V> {
               ),
               body: Stack(
                 children: [
-                  // if (model.isBusy)
-                  //   Container(
-                  //     height: height,
-                  //     width: width,
-                  //     child: Opacity(
-                  //       opacity: 0.5,
-                  //       child: Center(
-                  //         child: CircularProgressIndicator(),
-                  //       ),
-                  //     ),
-                  //   ),
-                  ListView(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Username",
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Username",
+                            ),
+                            controller: usernameController,
+                          ),
                         ),
-                        controller: usernameController,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Password",
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Password",
+                            ),
+                            controller: passwordController,
+                            obscureText: true,
+                          ),
                         ),
-                        controller: passwordController,
-                        obscureText: true,
-                      ),
-                      RaisedButton(
-                        child: Text("Submit"),
-                        onPressed: () async {
-                          String error = await model.login(
-                              usernameController.text, passwordController.text);
-                          if (error != "") {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(error),
-                            ));
-                          }
-                        },
-                      ),
-                      if (model.token != null)
-                        Text("Token Received: ${model.token}"),
-                      if (model.resources != null)
-                        ...model.resources
-                            .map(
-                              (String res) => RaisedButton(
-                                onPressed: () {
-                                  model.fetchResource(res);
-                                },
-                                child: Text(res),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                            color: Colors.green,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                ),
                               ),
-                            )
-                            .toList(),
-                      if (model.res != null) model.res
-                    ],
+                            ),
+                            onPressed: () async {
+                              String error = await model.login(
+                                  usernameController.text,
+                                  passwordController.text);
+                              if (error != "") {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(error),
+                                ));
+                              }
+                            },
+                          ),
+                        ),
+                        if (model.token != null)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Token Received: ${model.token}"),
+                          ),
+                        if (model.res != null) model.res,
+                        if (model.resources != null)
+                          ...model.resources
+                              .map(
+                                (String res) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      model.fetchResource(res);
+                                    },
+                                    child: Text(res),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                      ],
+                    ),
                   )
                 ],
               ),

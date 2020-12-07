@@ -6,7 +6,7 @@ import hmac
 
 app = Flask(__name__)
 
-key = 'secret'
+key =  b'\xffN.\xb64\xa9\xe3\x06\xed[\xc9u\xcc\xbb&\x1f'
 
 def validate_token(token):
     (header, payload, signature) = token.split('.')

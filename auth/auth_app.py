@@ -3,6 +3,7 @@ from flask.json import jsonify
 import json
 import base64
 import hmac
+import time
 
 app = Flask(__name__)
 
@@ -29,12 +30,12 @@ def auth():
     print("AuthServer")
     credentials = json.loads(request.get_data())
 
-    if id!=credentials['id']:
+    if id!=credentials['username']:
         return jsonify({"Error": "Incorrect ID"})
     elif password!=credentials['password']:
         return jsonify({"Error": "Incorrect password"})
 
-    payload = {'key1': 'val1', 'key2': 'val2'}   
+    payload = {'username': id, 'valid': time.time()}   
     token = create_signed_token(payload)
 
     print("Credentials Received{}".format(credentials))

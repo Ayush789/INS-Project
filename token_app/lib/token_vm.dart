@@ -16,6 +16,7 @@ class Token_VM extends BaseViewModel {
 
     token = null;
     resources = [];
+    res = null;
     setBusy(true);
 
     print("Logging In");
